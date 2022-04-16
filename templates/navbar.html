@@ -1,0 +1,68 @@
+<style>
+  .navbar-nav > .active {
+    color: #dc3545 !important;
+  }
+</style>
+
+<div class="fixed-top flex-md-column">
+  <div
+    class="w-100 bg-light d-flex align-items-center justify-content-center"
+    style="height: 50px"
+  >
+    <h5 class="text-secondary">
+      Plataforma de Iniciativas Ciudadanas
+      <span class="text-danger">"Jorge</span>
+      <span class="text-success">Piedrahita</span>
+      <span class="text-warning">Adúen"</span>
+    </h5>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img src="{{ configuracion.logo.url }}" alt="Logo" width="150px" />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav d-flex w-100 justify-content-evenly">
+          <a
+            href="{% if form is None %}/#propuestas{% else %}#propuestas{% endif %}"
+            class="nav-link"
+            >Iniciativas</a
+          >
+          <a
+            href="{% if form is None %}/#unidades{% else %}#unidades{% endif %}"
+            class="nav-link"
+            >Unidades</a
+          >
+          <a
+            href="{% if form is None %}/#herramientas{% else %}#herramientas{% endif %}"
+            class="nav-link"
+            >Herramientas</a
+          >
+          <a
+            href="{% if form is None %}/#convocatorias{% else %}#convocatorias{% endif %}"
+            class="nav-link"
+            >Convocatorias</a
+          >
+          <a
+            href="{% if form is None %}/#testimonios{% else %}#testimonios{% endif %}"
+            class="nav-link"
+            >Testimonios</a
+          >
+          <a
+            href="{% if form is None %}/#formulario{% else %}#formulario{% endif %}"
+            class="nav-link"
+            >Enviar propuesta</a
+          >
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

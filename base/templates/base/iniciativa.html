@@ -1,0 +1,127 @@
+{% extends 'main.html' %} {% block content %}
+<div class="py-4 bg-light">
+  <div class="container">
+    <div class="ratio ratio-16x9">
+      <iframe
+        src="https://www.youtube.com/embed/{{ proposal.video_id }}"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <br />
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-11">
+          <h2>{{ proposal.name }}</h2>
+          <p>Creada el {{ proposal.created }}</p>
+          <p>Por {{ proposal.group_name }}</p>
+        </div>
+        <div class="col-1 d-flex justify-content-end">
+          <div>
+            <a class="button link-secondary" href="{{ proposal.pdf.url }}" target="_blank">
+              <i class="bi bi-filetype-pdf fs-2" data-bs-toggle="tooltip" title="Ver cartilla"></i>
+            </a>
+          <div><br />
+          <div>
+            <a class="button link-secondary" href="{{ proposal.pdf.url  }}" download>
+              <i class="bi bi-download fs-2" data-bs-toggle="tooltip" title="Descargar cartilla"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="w-75">
+      <h4>Objetivo</h4>
+      <p>{{ proposal.objective }}</p>
+    </div>
+    <div class="w-75">
+      <h4>Problemática</h3>
+      <p>{{ proposal.problematic }}</h4>
+    </div>
+    <div class="w-75">
+      <h4>Descripción</h4>
+      <p>{{ proposal.description }}</p>
+    </div>
+    <div class="w-75">
+      <h4>Justificación</h4>
+      <p>{{ proposal.justification }}</p>
+    </div>
+    <br />
+    <div class="row row-cols-1 row-cols-xl-2">
+      <div class="col mt-3">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-1 d-flex justify-content-center m-auto">
+              <h4><i class="bi bi-diagram-3 text-warning"></i></h4>
+            </div>
+            <div class="col-11">
+              <div class="card-body ps-0">
+                <div>
+                  <span class="text-secondary">Categoria</span><br />
+                  <span>{{ proposal.category }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col mt-3">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-1 d-flex justify-content-center m-auto">
+              <h4><i class="bi bi-geo-alt-fill text-warning"></i></h4>
+            </div>
+            <div class="col-11">
+              <div class="card-body ps-0">
+                <div>
+                  <span class="text-secondary">Localidad</span><br />
+                  <span>{{ proposal.locality }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col mt-3">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-1 d-flex justify-content-center m-auto">
+              <h4><i class="bi bi-signpost-2 text-warning"></i></h4>
+            </div>
+            <div class="col-11">
+              <div class="card-body ps-0">
+                <div>
+                  <span class="text-secondary">Barrio/Sector de impacto</span><br />
+                  <span>{{ proposal.impact_sector }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-1 d-flex justify-content-center m-auto">
+              <h4><i class="bi bi-cash-stack text-warning"></i></h4>
+            </div>
+            <div class="col-11">
+              <div class="card-body ps-0">
+                <div>
+                  <span class="text-secondary">Valor estimado</span><br />
+                  <span>$ {{ proposal.estimated_value }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

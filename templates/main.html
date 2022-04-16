@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="{% static 'css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+    />
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>LAB3C - Iniciativas</title>
+  </head>
+  <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50">
+    {% include 'navbar.html' %}
+
+    <div class="container-fluid px-0" style="margin-top: 112px">
+      {% block content %}{% endblock %}
+    </div>
+
+    <div class="fixed-bottom">
+      <div class="btn-group ms-4 mb-2">
+        {% for red in redes %}
+        <button type="button" class="btn">
+          <a href="{{ red.url }}" target="_blank">
+            <img src="{{ red.domain }}" alt="icon" width="24" />
+          </a>
+        </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script>
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+
+      $(window).scroll(function () {
+        $(".slideanim").each(function () {
+          var pos = $(this).offset().top;
+
+          var winTop = $(window).scrollTop();
+          if (pos < winTop + 750) {
+            $(this).addClass("slider");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

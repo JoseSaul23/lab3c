@@ -1,0 +1,135 @@
+<style>
+  .required:after {
+    content: " *";
+    color: red;
+  }
+</style>
+
+<div>
+  <div class="col">
+    <div class="d-flex justify-content-center">
+      <i class="bi bi-file-text fs-2"></i>
+    </div>
+    <div class="d-flex justify-content-center">
+      <h3>Presenta tu propuesta de iniciativa</h3>
+    </div>
+    <br />
+    <p>{{ configuracion.form_intro }}</p>
+  </div>
+  <br />
+  <form method="POST" enctype="multipart/form-data" class="slideanim">
+    {% csrf_token %}
+    <div>
+      {% if form.errors %}
+      <div>
+        {% for field in form %}
+        <div>
+          {% for error in field.errors%}
+          <div class="alert alert-danger">
+            <span><b>{{ field.label }}:</b> {{ error|escape }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <fieldset class="row g-3">
+      <legend>Información del equipo gestor</legend>
+      <div class="col-12 form-floating">
+        {{ form.group_name }}
+        <label class="form-label required">{{ form.group_name.label }}</label>
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form.contact_name }}
+        <label class="form-label required">{{ form.contact_name.label }}</label>
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form.contact_charge }}
+        <label class="form-label required"
+          >{{ form.contact_charge.label }}</label
+        >
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form.email }}
+        <label class="form-label required">{{ form.email.label }}</label>
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form.contact_number }}
+        <label class="form-label required"
+          >{{ form.contact_number.label }}</label
+        >
+      </div>
+    </fieldset>
+    <br />
+    <fieldset class="row g-3">
+      <legend>Información de la iniciativa</legend>
+      <div class="col-12 form-floating">
+        {{ form.name }}
+        <label class="form-label required">{{ form.name.label }}</label>
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form.category }}
+        <label class="form-label required">{{ form.category.label }}</label>
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form.locality }}
+        <label class="form-label required">{{ form.locality.label }}</label>
+      </div>
+      <div class="col-12 form-floating">
+        {{ form.impact_sector }}
+        <label class="form-label">{{ form.impact_sector.label }}</label>
+      </div>
+      <div class="col-12 form-floating">
+        {{ form.objective }}
+        <label class="form-label required">{{ form.objective.label }}</label>
+      </div>
+      <div class="col-12 form-floating">
+        {{ form.problematic }}
+        <label class="form-label required">{{ form.problematic.label }}</label>
+      </div>
+      <div class="col-12 form-floating">
+        {{ form.description }}
+        <label class="form-label required">{{ form.description.label }}</label>
+      </div>
+      <div class="col-12 form-floating">
+        {{ form.justification }}
+        <label class="form-label required"
+          >{{ form.justification.label }}</label
+        >
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form.estimated_value }}
+        <label class="form-label required"
+          >{{ form.estimated_value.label }}</label
+        >
+      </div>
+      <div class="col-md-6 form-floating">
+        {{ form.url_video }}
+        <label class="form-label required">{{ form.url_video.label }}</label>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label required">{{ form.pdf.label }}</label>
+        {{ form.pdf }}
+      </div>
+      <div class="col-md-6">
+        <label class="form-label required">{{ form.annex.label }}</label>
+        {{ form.annex }}
+      </div>
+    </fieldset>
+    <br />
+    <div>
+      <h4>Autorización de tratamiento de datos personales</h4>
+      <br />
+      <p>{{ configuracion.data_agreement }}</p>
+    </div>
+    <div class="col-12">
+      <label class="form-label required">{{ form.terms_service.label }}</label>
+      {{ form.terms_service }}
+    </div>
+    <div class="d-flex justify-content-center mt-2">
+      <button class="btn btn-success">Enviar</button>
+    </div>
+    <br />
+  </form>
+</div>
