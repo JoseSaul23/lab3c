@@ -158,5 +158,6 @@ if 'RDS_DB_NAME' in os.environ:
         'CLOUD_NAME': os.environ['CLOUD_NAME'],
         'API_KEY': os.environ['API_KEY'],
         'API_SECRET': os.environ['API_SECRET'],
+        'CLOUDINARY_URL': os.environ['CLOUDINARY_URL'],
     }
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
