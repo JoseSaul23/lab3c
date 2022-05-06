@@ -109,8 +109,8 @@ class Proposal(models.Model):
     description = models.TextField(max_length=1000, verbose_name="Descripción breve de la iniciativa", validators=[MaxLengthValidator(1000)])
     justification = models.TextField(max_length=1000, verbose_name="Justificación de la iniciativa", validators=[MaxLengthValidator(1000)])
     estimated_value = models.PositiveIntegerField(verbose_name="Indique el valor estimado de su iniciativa")
-    pdf = models.FileField(upload_to='pdf_iniciativas', verbose_name="Adjunte aquí su propuesta en PDF", validators=[FileExtensionValidator( ['pdf'] )])
-    annex = models.FileField(upload_to='anexos_iniciativas', verbose_name="Adjunte aquí los anexos requeridos en un solo archivo",  validators=[FileExtensionValidator( ['pdf'] )])
+    pdf = models.FileField(upload_to='pdf/iniciativas', verbose_name="Adjunte aquí su propuesta en PDF", validators=[FileExtensionValidator( ['pdf'] )])
+    annex = models.FileField(upload_to='pdf/anexos_iniciativas', verbose_name="Adjunte aquí los anexos requeridos en un solo archivo",  validators=[FileExtensionValidator( ['pdf'] )])
     url_video = models.URLField(max_length=400, verbose_name="Pegue aquí la URL en Youtube con el video resumen de su propuesta")
     approved = models.BooleanField(default=False, verbose_name="¿Aprobado?")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
@@ -133,7 +133,7 @@ class Phase(models.Model):
     title = models.CharField(max_length=200, verbose_name="Título")
     description = models.TextField(max_length=1000, verbose_name="Descripción", validators=[MaxLengthValidator(1000)])
     number = models.PositiveIntegerField(verbose_name="Orden de la fase")
-    pdf = models.FileField(upload_to='pdf_fases', verbose_name="Archivo PDF", validators=[FileExtensionValidator( ['pdf'] )])
+    pdf = models.FileField(upload_to='pdf/fases', verbose_name="Archivo PDF", validators=[FileExtensionValidator( ['pdf'] )])
     url_video = models.URLField(max_length=400, verbose_name="URL en Youtube")
 
     @property
@@ -154,7 +154,7 @@ class Inscription(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     begins = models.DateField(verbose_name="Fecha de inicio")
     ends = models.DateField(verbose_name="Fecha final")
-    pdf = models.FileField(upload_to='pdf_convocatorias', validators=[FileExtensionValidator( ['pdf'] )])
+    pdf = models.FileField(upload_to='pdf/convocatorias', validators=[FileExtensionValidator( ['pdf'] )])
 
     @property
     def state(self):
@@ -176,10 +176,24 @@ class Inscription(models.Model):
     def __str__(self):
         return self.name
 
+class KeyConcepts(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Nombre del concepto")
+    description = models.TextField(max_length=400, verbose_name="Descripción del concepto", validators=[MaxLengthValidator(400)])
+    pdf = models.FileField(upload_to='pdf/conceptos', validators=[FileExtensionValidator( ['pdf'] )])
+        
+    class Meta:
+        db_table = 'Concepto'
+        verbose_name = 'Concepto'
+        verbose_name_plural = 'Conceptos'
+        ordering = ('-name',)
+
+    def __str__(self):
+        return self.name
+
 class Tool(models.Model):
     name = models.CharField(max_length=100, verbose_name="Nombre de la herramienta")
-    description = models.CharField(max_length=200, verbose_name="Descripción de la herramienta")
-    pdf = models.FileField(upload_to='pdf_herramientas', validators=[FileExtensionValidator( ['pdf'] )])
+    description = models.TextField(max_length=400, verbose_name="Descripción de la herramienta", validators=[MaxLengthValidator(400)])
+    pdf = models.FileField(upload_to='pdf/herramientas', validators=[FileExtensionValidator( ['pdf'] )])
         
     class Meta:
         db_table = 'Herramienta'
@@ -208,19 +222,6 @@ class Testimony(models.Model):
     def __str__(self):
         return self.name
 
-class Carousel(models.Model):
-    image = models.ImageField(upload_to='images', verbose_name="Imagen")
-    number = models.PositiveIntegerField(verbose_name="Orden de la imagen")
-
-    def __str__(self):
-        return str(self.number)
-    
-    class Meta:
-        db_table = 'Carrusel'
-        verbose_name = 'Carrusel'
-        verbose_name_plural = 'Carrusel'
-        ordering = ('number',)
-
 class Partner(models.Model):
     name =  models.CharField(max_length=100, verbose_name="Nombre")
     image = models.ImageField(upload_to='images', verbose_name="Imagen")
@@ -234,6 +235,23 @@ class Partner(models.Model):
         verbose_name = 'Alianza'
         verbose_name_plural = 'Alianzas'
         ordering = ('number',)
+
+class Contact(models.Model):
+    name =  models.CharField(max_length=100, verbose_name="Nombre")
+    email = models.EmailField(verbose_name="Correo electrónico")
+    issue =  models.CharField(max_length=100, verbose_name="Asunto")
+    message = models.TextField(max_length=500, verbose_name="Mensaje", validators=[MaxLengthValidator(500)])
+    view = models.BooleanField(default=False, verbose_name="¿Visto?")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Enviado")
+
+    def __str__(self):
+        return str(self.issue)
+    
+    class Meta:
+        db_table = 'Mensaje'
+        verbose_name = 'Mensaje'
+        verbose_name_plural = 'Mensajes'
+        ordering = ('-created',)
 
 class SocialMedia(models.Model):
     name =  models.CharField(max_length=100, verbose_name="Nombre")
@@ -255,10 +273,15 @@ class SocialMedia(models.Model):
 
 class Settings(models.Model):
     logo = models.ImageField(upload_to='images', verbose_name="Logo en menú")
+    title_intro =  models.CharField(max_length=200, verbose_name="Título introductorio")
     introduction = models.TextField(max_length=1000, verbose_name="Texto introductorio")
+    intro_image = models.ImageField(upload_to='images', verbose_name="Imagen introductoria (1920x1080)")
     pdf_general = models.FileField(upload_to='pdf_fases', validators=[FileExtensionValidator( ['pdf'] )], verbose_name="Unidad general")
     form_intro = models.TextField(max_length=1000, verbose_name="Introducción de formulario")
     data_agreement = models.TextField(max_length=1000, verbose_name="Autorización de tratamiento de datos personales")
+    contact_text = models.TextField(max_length=1000, verbose_name="Texto de contacto")
+    contact_address = models.TextField(max_length=100, verbose_name="Dirección contacto")
+    contact_phone = models.CharField(max_length=100, verbose_name="Telefono contacto")
 
     def __str__(self):
         return 'Preferencias página principal'

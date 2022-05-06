@@ -1,5 +1,5 @@
 from django import forms
-from .models import Proposal
+from .models import Contact, Proposal
 
 class ProposalForm(forms.ModelForm):
     YES = 'Si'
@@ -29,4 +29,17 @@ class ProposalForm(forms.ModelForm):
             'annex': forms.FileInput(attrs={'class': 'form-control',}),
             'url_video': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'group'}),
             'terms_service': forms.RadioSelect(attrs={"required": "required"}),
+        }
+
+class ContactForm(forms.ModelForm):
+
+    class Meta:
+        model = Contact
+        fields = '__all__'
+        exclude = ['created']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'group'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'group'}),
+            'issue': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'group'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'style': 'height: 100px', 'placeholder': 'group', 'size': '40'}),
         }

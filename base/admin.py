@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Carousel, Proposal, Category, Locality, Inscription, Phase, Settings, Testimony, Tool, Partner, SocialMedia
+from .models import Contact, Proposal, Category, Locality, Inscription, Phase, Settings, Testimony, KeyConcepts, Tool, Partner, SocialMedia
 
 class ProposalAdmin(admin.ModelAdmin): 
     list_display = ['name', 'group_name', 'contact_name', 'approved']
@@ -27,6 +27,9 @@ class InscriptionAdmin(admin.ModelAdmin):
 class ToolAdmin(admin.ModelAdmin): 
     list_display = ['name', 'description']
 
+class KeyConceptsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'description']
+
 class TestimonyAdmin(admin.ModelAdmin): 
     list_display = ['name', 'created']
     search_fields = ['name']
@@ -34,6 +37,13 @@ class TestimonyAdmin(admin.ModelAdmin):
 
 class PartnerAdmin(admin.ModelAdmin):
     list_display = ['name', 'number']
+
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['name', 'issue', 'created', 'view']
+    readonly_fields = ('name', 'email', 'issue', 'message', 'created', )
+
+    def has_add_permission(self, request):
+        return False
 
 class SocialMediaAdmin(admin.ModelAdmin):
     list_display = ['name', 'number']
@@ -44,9 +54,10 @@ admin.site.register(Locality, LocalityAdmin)
 admin.site.register(Phase, PhaseAdmin)
 admin.site.register(Inscription, InscriptionAdmin)
 admin.site.register(Tool, ToolAdmin)
+admin.site.register(KeyConcepts, KeyConceptsAdmin)
 admin.site.register(Testimony, TestimonyAdmin)
-admin.site.register(Carousel)
 admin.site.register(Partner, PartnerAdmin)
+admin.site.register(Contact, ContactAdmin)
 admin.site.register(SocialMedia, SocialMediaAdmin)
 
 

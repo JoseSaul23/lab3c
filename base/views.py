@@ -2,45 +2,57 @@ from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.contrib import messages
 from django.core.paginator import Paginator
-from .forms import ProposalForm
-from base.models import Carousel, Partner, Phase, Proposal, Inscription, Category, Locality, Settings, SocialMedia, Testimony, Tool
+from .forms import ContactForm, ProposalForm
+from base.models import KeyConcepts, Partner, Phase, Proposal, Inscription, Category, Locality, Settings, SocialMedia, Testimony, Tool
 
 def home(request):
 
     configuracion = Settings.objects.all()[0]
-    images = Carousel.objects.all()
     last_proposals = Proposal.objects.filter(approved=True)[:5]
     phases = Phase.objects.all()
+    conceptos = KeyConcepts.objects.all()
     herramientas = Tool.objects.all()
     convocatorias = Inscription.objects.all()[:5]
     testimonios = Testimony.objects.all()[:3]
     form = ProposalForm()
     redes = SocialMedia.objects.all()
     alianzas = Partner.objects.all()
+    contactForm = ContactForm()
 
     context = {
         'configuracion': configuracion,
-        'images': images,
         'last_proposals': last_proposals,
+        'conceptos': conceptos,
         'phases': phases,
         'herramientas': herramientas,
         'convocatorias': convocatorias,
         'testimonios': testimonios,
         'form': form,
         'redes': redes,
-        'alianzas': alianzas
+        'alianzas': alianzas,
+        'contactForm': contactForm
     }
 
-    if(request.method == 'POST'):
-        form = ProposalForm(request.POST, request.FILES)
-        if form.is_valid():
-           form.save()
-           messages.success(request, '¡Se ha enviado su propuesta con éxito! Se visualizara cuando sea aprobada.')
-           return redirect('/#formulario')
-        else:
-          context['form'] = form
-          request.path = '/#formulario'
-          return render(request, 'base/home.html', context)
+    """
+    Handle Multiple <form></form> elements
+    """
+    if request.method == 'POST':
+        if 'formOne' in request.POST:
+            form = ProposalForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request, '¡Se ha enviado su propuesta con éxito! Se visualizara cuando sea aprobada.')
+                return redirect('/#formulario')
+            else:
+                context['form'] = form
+                request.path = '/#formulario'
+                return render(request, 'base/home.html', context)
+        if 'formTwo' in request.POST:
+            contactForm = ContactForm(request.POST)
+            if contactForm.is_valid():
+                contactForm.save()
+                messages.success(request, '¡Se ha enviado su mensaje con éxito!')
+                return redirect('/#contacto')
 
     return render(request, 'base/home.html', context)
 

@@ -45,77 +45,28 @@
     }
   </style>
   {% load static %}
-  <div
-    class="py-4 d-flex align-items-center justify-content-center"
-    style="
-    background-image: url('{% static "/images/intro2.jpg" %}');
-    background-repeat: no-repeat;
-    height: 100vh;"
-  >
-    <div class="container">
-      <h1 class="text-white text-center">
-        {{ configuracion.introduction }}
+  <div class="py-4 bg-light">
+    <div
+      class="d-flex align-items-center justify-content-center"
+      style="
+      background-image: url('{{  configuracion.intro_image.url }}');
+      background-repeat: no-repeat;
+      background-position: center top;
+      height: 105vh;"
+    ></div>
+  </div>
+
+  <div class="py-4 bg-light">
+    <div class="container py-4 slideanim">
+      <h1 class="text-center text-secondary">
+        <b>{{ configuracion.title_intro }}</b>
       </h1>
+      <br />
+      <h3 class="text-center">{{ configuracion.introduction }}</h3>
     </div>
   </div>
 
-  <div
-    id="carouselExampleIndicators"
-    class="carousel slide"
-    data-bs-ride="carousel"
-  >
-    <div class="carousel-indicators">
-      {% for image in images %} {% if forloop.first %}
-      <button
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide-to="{{forloop.counter0}}"
-        class="active"
-      ></button>
-      {% else %}
-      <button
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide-to="{{forloop.counter0}}"
-      ></button>
-
-      {% endif %} {% endfor %}
-    </div>
-
-    <div class="carousel-inner">
-      {% for image in images %}
-      <div class="carousel-item {% if forloop.first %}active {% endif %}">
-        <img
-          style="height: 80vh"
-          src="{{image.image.url}}"
-          class="d-block w-100"
-          alt="{{image.number}}"
-        />
-      </div>
-      {% endfor %}
-    </div>
-
-    <button
-      class="carousel-control-prev"
-      type="button"
-      data-bs-target="#carouselExampleIndicators"
-      data-bs-slide="prev"
-    >
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-      class="carousel-control-next"
-      type="button"
-      data-bs-target="#carouselExampleIndicators"
-      data-bs-slide="next"
-    >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-
-  <div class="py-4">
+  <div class="py-5">
     <div class="container">
       <div
         id="propuestas"
@@ -153,7 +104,53 @@
     </div>
   </div>
 
-  <div class="py-4 bg-light">
+  <div class="py-5 bg-danger">
+    <div class="container">
+      <div class="anchor d-flex justify-content-center">
+        <i class="bi bi-lightbulb fs-2 text-white"></i>
+      </div>
+      <div id="conceptos" class="anchor d-flex justify-content-center">
+        <h3 class="text-white">Conceptos claves</h3>
+      </div>
+      <br />
+      <div class="slideanim">
+        <div class="row row-cols-1 row-cols-lg-3 d-flex justify-content-center">
+          {% for concepto in conceptos %}
+          <div class="col mt-3">
+            <div class="card text-center border-light">
+              <h5 class="card-header text-secondary">{{ concepto.name }}</h5>
+              <div class="card-body">
+                <p class="card-text text-secondary">
+                  {{ concepto.description }}
+                </p>
+                <div class="d-flex justify-content-center gap-4">
+                  <span data-bs-toggle="tooltip" title="Ver concepto">
+                    <a
+                      class="button link-secondary"
+                      href="{{concepto.pdf.url}}"
+                      target="_blank"
+                      ><i class="bi bi-filetype-pdf fs-2"></i
+                    ></a>
+                  </span>
+                  <span data-bs-toggle="tooltip" title="Descargar concepto">
+                    <a
+                      class="button link-secondary"
+                      href="{{ concepto.pdf.url  }}"
+                      download
+                      ><i class="bi bi-download fs-2"></i
+                    ></a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-5 bg-light">
     <div class="container">
       <div class="anchor d-flex justify-content-center">
         <i class="bi bi bi-list-check fs-2"></i>
@@ -208,12 +205,17 @@
         {% endfor %}
       </div>
       <div class="d-flex justify-content-center mt-2">
-        <a  class="btn btn-outline-success" href="{{configuracion.pdf_general.url}}" download>Descargar unidad general</a>
+        <a
+          class="btn btn-outline-success"
+          href="{{configuracion.pdf_general.url}}"
+          download
+          >Descargar unidad general</a
+        >
       </div>
     </div>
   </div>
 
-  <div class="py-4 bg-danger">
+  <div class="py-5 bg-success">
     <div class="container">
       <div class="anchor d-flex justify-content-center">
         <i class="bi bi-tools fs-2 text-white"></i>
@@ -225,15 +227,17 @@
       <div class="slideanim">
         <div class="row row-cols-1 row-cols-lg-3">
           {% for herramienta in herramientas %}
-          <div class="col">
-            <div class="card border-light text-white bg-danger">
+          <div class="col mt-3">
+            <div class="card border-light text-center">
+              <h5 class="card-header text-secondary">{{ herramienta.name }}</h5>
               <div class="card-body">
-                <h5 class="card-title">{{ herramienta.name }}</h5>
-                <p class="card-text">{{ herramienta.description }}</p>
+                <p class="card-text text-secondary">
+                  {{ herramienta.description }}
+                </p>
                 <div class="d-flex justify-content-center gap-4">
                   <span data-bs-toggle="tooltip" title="Ver herramienta">
                     <a
-                      class="button link-light"
+                      class="button link-secondary"
                       href="{{herramienta.pdf.url}}"
                       target="_blank"
                       ><i class="bi bi-filetype-pdf fs-2"></i
@@ -241,7 +245,7 @@
                   </span>
                   <span data-bs-toggle="tooltip" title="Descargar herramienta">
                     <a
-                      class="button link-light"
+                      class="button link-secondary"
                       href="{{ herramienta.pdf.url  }}"
                       download
                       ><i class="bi bi-download fs-2"></i
@@ -257,14 +261,15 @@
     </div>
   </div>
 
-  <div class="py-4">
+  <div class="py-5">
     <div class="container">
       <div class="anchor d-flex justify-content-center">
-        <i class="bi bi-calendar-event fs-2"></i>
+        <i class="bi bi-calendar-week fs-2"></i>
       </div>
       <div id="convocatorias" class="anchor d-flex justify-content-center">
         <h3>Convocatorias</h3>
       </div>
+      <br />
       <div class="slideanim">
         <table class="table table-striped table-hover">
           <thead>
@@ -315,10 +320,10 @@
     </div>
   </div>
 
-  <div class="py-4 bg-warning">
+  <div class="py-5 bg-warning">
     <div class="container">
       <div class="anchor d-flex justify-content-center">
-        <i class="bi bi-file-earmark-person fs-2"></i>
+        <i class="bi bi-chat fs-2"></i>
       </div>
       <div id="testimonios" class="anchor d-flex justify-content-center">
         <h3>Testimonios</h3>
@@ -328,7 +333,7 @@
         <div class="row row-cols-1 row-cols-lg-3">
           {% for testimonio in testimonios %}
           <div class="col">
-            <div class="ratio ratio-16x9">
+            <div class="ratio ratio-16x9 mb-2">
               <iframe
                 src="https://www.youtube.com/embed/{{ testimonio.video_id }}"
                 title="YouTube video player"
@@ -337,6 +342,7 @@
                 allowfullscreen
               ></iframe>
             </div>
+            <p class="fs-5">{{ testimonio.name }}</p>
           </div>
           {% endfor %}
         </div>
@@ -344,7 +350,7 @@
     </div>
   </div>
 
-  <div class="py-4 bg-light">
+  <div class="py-5 bg-light">
     <div class="container">
       <div class="anchor mx-5" id="formulario">
         {% if messages %}
@@ -358,7 +364,7 @@
     </div>
   </div>
 
-  <div class="py-4">
+  <div class="py-5">
     <div class="container">
       <div class="d-flex justify-content-center">
         <h3 class="text-secondary">Nuestras alianzas</h3>
@@ -367,9 +373,23 @@
       <div class="row row-cols-1 row-cols-lg-3">
         {% for alianza in alianzas %}
         <div class="col mt-2">
-          <img src="{{alianza.image.url}}" class="img-thumbnail" alt="ally">
+          <img src="{{alianza.image.url}}" class="img-thumbnail" alt="ally" />
         </div>
         {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="py-5 bg-light">
+    <div class="container">
+      <div class="anchor mx-5" id="contacto">
+        {% if messages %}
+        <div class="alert alert-success">
+          {% for message in messages %}
+          <span>{{ message }}</span>
+          {% endfor %}
+        </div>
+        {% endif %} {% include 'base/contacto-form.html' %}
       </div>
     </div>
   </div>

@@ -1,0 +1,64 @@
+<style>
+  .required:after {
+    content: " *";
+    color: red;
+  }
+</style>
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-lg-2">
+    <div class="col">
+      <div class="d-flex justify-content-center">
+        <h2>¡Contáctanos a través de este formulario!</h2>
+      </div>
+      <br />
+      <p>{{ configuracion.contact_text }}</p>
+      <p>
+        <i class="bi bi-geo-alt-fill text-success"></i>
+        <span>{{ configuracion.contact_address }}</span>
+      </p>
+      <p>
+        <i class="bi bi-telephone-fill text-success"></i>
+        <span>{{ configuracion.contact_phone }}</span>
+      </p>
+    </div>
+    <div class="col card py-4">
+      <div class="card-body">
+        <form method="POST">
+          {% csrf_token %}
+          <fieldset class="row g-3">
+            <div class="col-12 form-floating">
+              {{ contactForm.name }}
+              <label class="form-label required"
+                >{{ contactForm.name.label }}</label
+              >
+            </div>
+            <div class="col-12 form-floating">
+              {{ contactForm.email }}
+              <label class="form-label required"
+                >{{ contactForm.email.label }}</label
+              >
+            </div>
+            <div class="col-12 form-floating">
+              {{ contactForm.issue }}
+              <label class="form-label required"
+                >{{ contactForm.issue.label }}</label
+              >
+            </div>
+            <div class="col-12 form-floating">
+              {{ contactForm.message }}
+              <label class="form-label required"
+                >{{ contactForm.message.label }}</label
+              >
+            </div>
+          </fieldset>
+          <div class="mt-3">
+            <button class="btn btn-success" type="submit" name="formTwo">
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

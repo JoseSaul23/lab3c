@@ -6,10 +6,10 @@
 
 <div class="fixed-top flex-md-column">
   <div
-    class="w-100 bg-light d-flex align-items-center justify-content-center"
+    class="w-100 bg-light d-flex align-items-center justify-content-center px-2"
     style="height: 50px"
   >
-    <h5 class="text-secondary">
+    <h5 class="text-secondary text-center">
       Plataforma de Iniciativas Ciudadanas
       <span class="text-danger">"Jorge</span>
       <span class="text-success">Piedrahita</span>
@@ -37,6 +37,11 @@
             >Iniciativas</a
           >
           <a
+            href="{% if form is None %}/#conceptos{% else %}#conceptos{% endif %}"
+            class="nav-link"
+            >Conceptos</a
+          >
+          <a
             href="{% if form is None %}/#unidades{% else %}#unidades{% endif %}"
             class="nav-link"
             >Unidades</a
@@ -60,6 +65,11 @@
             href="{% if form is None %}/#formulario{% else %}#formulario{% endif %}"
             class="nav-link"
             >Enviar propuesta</a
+          >
+          <a
+            href="{% if form is None %}/#contacto{% else %}#contacto{% endif %}"
+            class="nav-link"
+            >Contacto</a
           >
         </div>
       </div>
