@@ -170,16 +170,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-AWS_DEFAULT_ACL = 'public-read' 
-AWS_S3_ENDPOINT_URL = 'https://nyc3.digitaloceanspaces.com' # Make sure nyc3 is correct
+AWS_S3_ENDPOINT_URL = 'https://nyc3.digitaloceanspaces.com'
 AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400'
+    "CacheControl": "max-age=86400",
+    "ACL": "public-read"
 }
 
-AWS_MEDIA_LOCATION = 'media'
-PUBLIC_MEDIA_LOCATION = 'media'
-MEDIA_URL = '%s%s' % (AWS_S3_ENDPOINT_URL, AWS_MEDIA_LOCATION)
-DEFAULT_FILE_STORAGE = 'lab3c.storage_backends.MediaStorage'
+AWS_LOCATION = "https://lab3c-space.nyc3.digitaloceanspaces.com"
+DEFAULT_FILE_STORAGE = 'lab3c.storage_backends.MediaRootS3BotoStorage'
 
 # MEDIA_URL='/media/'
 # MEDIA_ROOT=os.path.join(BASE_DIR,'media')
