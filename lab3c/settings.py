@@ -176,6 +176,9 @@ AWS_S3_OBJECT_PARAMETERS = {
     "ACL": "public-read"
 }
 AWS_S3_FILE_OVERWRITE = False
+AWS_S3_OBJECT_PARAMETERS = {
+    'Content-Disposition': 'attachments;',
+}
 
 AWS_LOCATION = "https://lab3c-space.nyc3.digitaloceanspaces.com"
 DEFAULT_FILE_STORAGE = 'lab3c.storage_backends.MediaRootS3BotoStorage'
