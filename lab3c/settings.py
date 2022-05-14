@@ -177,7 +177,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_OBJECT_PARAMETERS = {
-    'ContentDisposition': 'attachments;',
+    'ContentDisposition': 'attachments; inline;',
 }
 
 AWS_LOCATION = "https://lab3c-space.nyc3.digitaloceanspaces.com"
