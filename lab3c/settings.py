@@ -33,6 +33,7 @@ DEBUG = (os.getenv('DEBUG', 'False') == 'True')
 
 ALLOWED_HOSTS = [
     "lab3c-x6tq9.ondigitalocean.app",
+    "iniciativas.lab3c.co",
     "lab3c.herokuapp.com",
     "localhost",
     "127.0.0.1"
